@@ -87,9 +87,6 @@ function TextBoxType($Sender, $e) {
   if ($global:InputFile -ne "") {
     Set-Content $global:InputFile $TextBox.Text
   }
-  else {
-    Alert "No file to save!"
-  }
 }
 
 function GetFileName($InitialDirectory) {
