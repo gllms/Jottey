@@ -11,7 +11,6 @@ Add-Type -AssemblyName System.IO
 
 # Globals
 $global:InputFile = ""
-$global:FilesOpened = 0
 
 #region begin GUI{ 
 
@@ -61,26 +60,6 @@ function OpenMenuClick($Sender, $e) {
   $global:InputFile = GetFileName "C:\"
   $InputData = Get-Content $global:InputFile
   $TextBox.Text = $InputData
-  
-  # Monitor file for changes
-  if ($global:FilesOpened -gt 0) {
-    Unregister-Event FileChanged
-  }
-  $folder = Split-Path -Path $global:InputFile
-  $fsw = New-Object IO.FileSystemWatcher $folder, $global:InputFile -Property @{IncludeSubdirectories = $false; NotifyFilter = [IO.NotifyFilters]'FileName, LastWrite'; } 
-  
-  Register-ObjectEvent $fsw Changed -SourceIdentifier FileChanged -Action {
-    $name = $Event.SourceEventArgs.Name 
-    $changeType = $Event.SourceEventArgs.ChangeType 
-    $timeStamp = $Event.TimeGenerated 
-    Alert "The file '$name' was $changeType at $timeStamp"
-
-    # Refresh file
-    $InputData = Get-Content $global:InputFile
-    $TextBox.Text = $InputData
-  }
-
-  $global:FilesOpened++
 }
 
 function TextBoxType($Sender, $e) {
