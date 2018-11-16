@@ -86,5 +86,4 @@ function Alert($Message) {
 
 #endregion GUI }
 
-$Jottey.add_FormClosing( { if ($global:FilesOpened -gt 0) { Unregister-Event FileChanged } })
 [void]$Jottey.ShowDialog()
