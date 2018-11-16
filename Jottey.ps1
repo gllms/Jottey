@@ -18,7 +18,7 @@ $Jottey = New-Object System.Windows.Forms.Form
 $Jottey.ClientSize = "400,400"
 $Jottey.Text = "Jottey"
 $Jottey.TopMost = $false
-$Jottey.Icon = "icon.ico"
+$Jottey.Icon = "img/icon.ico"
 
 $TextBox = New-Object System.Windows.Forms.TextBox
 $TextBox.Multiline = $true
