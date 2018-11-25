@@ -13,3 +13,5 @@ Saves files automatically.
 - [ ] About
 - [ ] Taskbar with Line and Column numbers
 - [ ] Dark theme?
+- [ ] Settings menu with options for autosave
+- [ ] Shortcuts
