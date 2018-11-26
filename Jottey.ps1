@@ -28,7 +28,7 @@ $TextBox.Anchor = "top,right,bottom,left"
 $TextBox.Location = New-Object System.Drawing.Point(0, 24)
 $TextBox.Font = "Consolas,10"
 $TextBox.ScrollBars = "Both"
-$TextBox.Add_TextChanged( { TextBoxType $TextBox $EventArgs } )
+$TextBox.Add_KeyUp( { TextBoxType $TextBox $EventArgs } )
 $TextBox.Add_Click( { TextBoxType $TextBox $EventArgs } )
 
 $Jottey.Controls.Add($TextBox)
