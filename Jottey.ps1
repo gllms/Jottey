@@ -23,7 +23,7 @@ $Jottey.Icon = "img/icon.ico"
 $TextBox = New-Object System.Windows.Forms.TextBox
 $TextBox.Multiline = $true
 $TextBox.Width = 400
-$TextBox.Height = 376
+$TextBox.Height = 354
 $TextBox.Anchor = "top,right,bottom,left"
 $TextBox.Location = New-Object System.Drawing.Point(0, 24)
 $TextBox.Font = "Consolas,10"
@@ -56,6 +56,14 @@ $OpenMenu.Add_Click( { OpenMenuClick $OpenMenu $EventArgs} )
 
 $Jottey.Controls.Add($Menu)
 
+$StatusBar = New-Object System.Windows.Forms.StatusBar
+$StatusBarPanel = New-Object System.Windows.Forms.StatusBarPanel
+$StatusBarPanel.Text = "Ln 1, Col 1"
+$StatusBar.ShowPanels = $true
+$StatusBar.Panels.Add($StatusBarPanel)
+
+$Jottey.Controls.Add($StatusBar)
+
 #region gui events {
 function OpenMenuClick($Sender, $e) {
   $global:InputFile = GetFileName "C:\"
@@ -67,6 +75,12 @@ function TextBoxType($Sender, $e) {
   if ($global:InputFile -ne "") {
     Set-Content $global:InputFile $TextBox.Text
   }
+
+  $s = $TextBox.SelectionStart
+  $y = $TextBox.GetLineFromCharIndex($s) + 1
+  $x = $s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1
+  $StatusBarPanel.Text = "Ln: $y, Col: $x"
+
 }
 
 function GetFileName($InitialDirectory) {
