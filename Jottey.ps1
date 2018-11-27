@@ -36,8 +36,10 @@ $Jottey.Controls.Add($TextBox)
 $Menu = New-Object System.Windows.Forms.MenuStrip
 $FileMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $OpenMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$SearchMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 
-$Menu.Items.AddRange(@($FileMenu))
+$Menu.Items.AddRange(@($FileMenu; $EditMenu))
 $Menu.Location = New-Object System.Drawing.Point(0, 0)
 $Menu.Name = "Menu"
 $Menu.Size = New-Object System.Drawing.Size(400, 24)
@@ -54,6 +56,16 @@ $OpenMenu.Size = New-Object System.Drawing.Size(152, 22)
 $OpenMenu.Text = "&Open"
 $OpenMenu.Add_Click( { OpenMenuClick $OpenMenu $EventArgs} )
 
+$EditMenu.DropDownItems.AddRange(@($SearchMenu))
+$EditMenu.Name = "editToolStripMenuItem"
+$EditMenu.Size = New-Object System.Drawing.Size(35, 20)
+$EditMenu.Text = "&Edit"
+
+$SearchMenu.Name = "searchToolStripMenuItem"
+$SearchMenu.Size = New-Object System.Drawing.Size(152, 22)
+$SearchMenu.Text = "&Search"
+$SearchMenu.Add_Click( { SearchMenuClick $OpenMenu $EventArgs} )
+
 $Jottey.Controls.Add($Menu)
 
 $StatusBar = New-Object System.Windows.Forms.StatusBar
@@ -66,35 +78,50 @@ $Jottey.Controls.Add($StatusBar)
 
 #region gui events {
 function OpenMenuClick($Sender, $e) {
-  $global:InputFile = GetFileName "C:\"
-  $InputData = Get-Content $global:InputFile
-  $TextBox.Text = $InputData
+    $global:InputFile = GetFileName "C:\"
+    $InputData = Get-Content $global:InputFile
+    $TextBox.Text = $InputData
+}
+
+function SearchMenuClick($Sender, $e) {
+    $SearchForm = New-Object System.Windows.Forms.Form
+    $SearchForm.ClientSize = "200, 50"
+
+    $SearchInput = New-Object System.Windows.Forms.TextBox
+    $SearchInput.Width = 80
+    $SearchInput.Anchor = "top,right,bottom,left"
+    $SearchInput.Location = New-Object System.Drawing.Point(0, 0)
+    $SearchInput.Font = "Consolas,10"
+
+    $SearchForm.Controls.Add($SearchInput)
+
+    $SearchForm.ShowDialog()
 }
 
 function TextBoxType($Sender, $e) {
-  if ($global:InputFile -ne "") {
-    Set-Content $global:InputFile $TextBox.Text
-  }
+    if ($global:InputFile -ne "") {
+        Set-Content $global:InputFile $TextBox.Text
+    }
 
-  $s = $TextBox.SelectionStart
-  $y = $TextBox.GetLineFromCharIndex($s) + 1
-  $x = $s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1
-  $StatusBarPanel.Text = "Ln: $y, Col: $x"
+    $s = $TextBox.SelectionStart
+    $y = $TextBox.GetLineFromCharIndex($s) + 1
+    $x = $s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1
+    $StatusBarPanel.Text = "Ln: $y, Col: $x"
 
 }
 
 function GetFileName($InitialDirectory) {
-  [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
+    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
   
-  $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
-  $OpenFileDialog.InitialDirectory = $InitialDirectory
-  $OpenFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-  $OpenFileDialog.ShowDialog() | Out-Null
-  $OpenFileDialog.FileName
+    $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.InitialDirectory = $InitialDirectory
+    $OpenFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+    $OpenFileDialog.ShowDialog() | Out-Null
+    $OpenFileDialog.FileName
 }
 
 function Alert($Message) {
-  [System.Windows.Forms.MessageBox]::Show($Message)
+    [System.Windows.Forms.MessageBox]::Show($Message)
 }
 
 #endregion events }
