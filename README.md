@@ -11,7 +11,7 @@ Saves files automatically.
 - [ ] Save as
 - [ ] Search / Replace
 - [ ] About
-- [x] Taskbar with Line and Column numbers
+- [x] Statusbar with Line and Column numbers
 - [ ] Dark theme?
 - [ ] Settings menu with options for autosave
 - [ ] Shortcuts
