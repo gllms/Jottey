@@ -10,7 +10,7 @@ Saves files automatically.
 - [x] Auto save
 - [ ] Save as
 - [ ] Search / Replace
-- [ ] About
+- [x] About
 - [x] Statusbar with Line and Column numbers
 - [ ] Dark theme?
 - [ ] Settings menu with options for autosave

@@ -40,6 +40,7 @@ $Jottey.Controls.Add($TextBox)
 $Menu = New-Object System.Windows.Forms.MenuStrip
 $FileMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $OpenMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$AboutMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $SelectAllMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 
@@ -50,7 +51,7 @@ $Menu.Size = New-Object System.Drawing.Size(400, 24)
 $Menu.TabIndex = 0
 $Menu.Text = "Menu"
 
-$FileMenu.DropDownItems.AddRange(@($OpenMenu))
+$FileMenu.DropDownItems.AddRange(@($OpenMenu; $AboutMenu))
 $FileMenu.Name = "fileToolStripMenuItem"
 $FileMenu.Size = New-Object System.Drawing.Size(35, 20)
 $FileMenu.Text = "&File"
@@ -60,6 +61,11 @@ $OpenMenu.Size = New-Object System.Drawing.Size(152, 22)
 $OpenMenu.Text = "&Open"
 $OpenMenu.Add_Click( { OpenMenuClick $OpenMenu $EventArgs} )
 $OpenMenu.ShortCutKeys = "Control+O"
+
+$AboutMenu.Name = "aboutToolStripMenuItem"
+$AboutMenu.Size = New-Object System.Drawing.Size(269, 22)
+$AboutMenu.Text = "&About"
+$AboutMenu.Add_Click( { AboutMenuClick $AboutMenu $EventArgs} )
 
 $EditMenu.DropDownItems.AddRange(@($SelectAllMenu))
 $EditMenu.Name = "editToolStripMenuItem"
@@ -105,6 +111,11 @@ function TextBoxType($Sender, $e) {
   $x = $s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1
   $StatusBarPanel.Text = "Ln: $y, Col: $x"
 
+}
+
+function AboutMenuClick(){
+  $Buttons=[system.windows.forms.messageboxbuttons]::OK;
+  [system.windows.forms.messagebox]::Show("Jottey. Simple plain text editor completely written in PowerShell. Saves files automatically.", "About", $Buttons);
 }
 
 function Alert($Message) {
