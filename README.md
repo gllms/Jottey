@@ -14,4 +14,4 @@ Saves files automatically.
 - [x] Statusbar with Line and Column numbers
 - [ ] Dark theme?
 - [ ] Settings menu with options for autosave
-- [ ] Shortcuts
+- [x] Shortcuts
