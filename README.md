@@ -3,7 +3,7 @@ Simple plain text editor completely written in PowerShell.
 Saves files automatically.
 
 ## Screenshot
-![Screenshot](https://user-images.githubusercontent.com/19732805/48641269-80084200-e9d9-11e8-950f-1c4af03fb34d.png)
+![Screenshot](https://user-images.githubusercontent.com/19732805/49251009-b5248380-f420-11e8-9658-602f3a9c1866.png)
 
 ## TODO
 - [x] Open files
