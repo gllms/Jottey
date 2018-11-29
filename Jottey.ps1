@@ -115,7 +115,19 @@ function TextBoxType($Sender, $e) {
 
 function AboutMenuClick(){
   $Buttons=[System.Windows.Forms.MessageBoxButtons]::OK;
-  [System.Windows.Forms.MessageBox]::Show("Jottey. Simple plain text editor completely written in PowerShell. Saves files automatically.", "About", $Buttons);
+  $Message = [string]@'
+  Jottey. 
+  Simple plain text editor completely written in PowerShell.
+  Saves files automatically.
+
+  Contribute - https://github.com/gllms/Jottey
+  
+  MIT License - https://github.com/gllms/Jottey/blob/master/LICENSE.txt
+
+  Copyright (c) 2018 gllms
+'@
+
+  [System.Windows.Forms.MessageBox]::Show($Message, "About", $Buttons);
 }
 
 function Alert($Message) {
