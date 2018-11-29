@@ -36,8 +36,10 @@ $Jottey.Controls.Add($TextBox)
 $Menu = New-Object System.Windows.Forms.MenuStrip
 $FileMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $OpenMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$SelectAllMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 
-$Menu.Items.AddRange(@($FileMenu))
+$Menu.Items.AddRange(@($FileMenu; $EditMenu))
 $Menu.Location = New-Object System.Drawing.Point(0, 0)
 $Menu.Name = "Menu"
 $Menu.Size = New-Object System.Drawing.Size(400, 24)
@@ -53,6 +55,18 @@ $OpenMenu.Name = "openToolStripMenuItem"
 $OpenMenu.Size = New-Object System.Drawing.Size(152, 22)
 $OpenMenu.Text = "&Open"
 $OpenMenu.Add_Click( { OpenMenuClick $OpenMenu $EventArgs} )
+$OpenMenu.ShortCutKeys = "Control+O"
+
+$EditMenu.DropDownItems.AddRange(@($SelectAllMenu))
+$EditMenu.Name = "editToolStripMenuItem"
+$EditMenu.Size = New-Object System.Drawing.Size(35, 20)
+$EditMenu.Text = "&Edit"
+
+$SelectAllMenu.Name = "selectAllToolStripMenuItem"
+$SelectAllMenu.Size = New-Object System.Drawing.Size(152, 22)
+$SelectAllMenu.Text = "Select &All"
+$SelectAllMenu.Add_Click( { SelectAllMenuClick $OpenMenu $EventArgs} )
+$SelectAllMenu.ShortCutKeys = "Control+A"
 
 $Jottey.Controls.Add($Menu)
 
@@ -69,6 +83,10 @@ function OpenMenuClick($Sender, $e) {
   $global:InputFile = GetFileName "C:\"
   $InputData = Get-Content $global:InputFile
   $TextBox.Text = $InputData
+}
+
+function SelectAllMenuClick($Sender, $e) {
+  $TextBox.SelectAll()
 }
 
 function TextBoxType($Sender, $e) {
