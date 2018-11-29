@@ -26,6 +26,7 @@ $Jottey.Icon = "img/icon.ico"
 
 $TextBox = New-Object System.Windows.Forms.TextBox
 $TextBox.Multiline = $true
+$TextBox.AcceptsTab = $true
 $TextBox.Width = 400
 $TextBox.Height = 354
 $TextBox.Anchor = "top,right,bottom,left"
