@@ -114,8 +114,8 @@ function TextBoxType($Sender, $e) {
 }
 
 function AboutMenuClick(){
-  $Buttons=[system.windows.forms.messageboxbuttons]::OK;
-  [system.windows.forms.messagebox]::Show("Jottey. Simple plain text editor completely written in PowerShell. Saves files automatically.", "About", $Buttons);
+  $Buttons=[System.Windows.Forms.MessageBoxButtons]::OK;
+  [System.Windows.Forms.MessageBox]::Show("Jottey. Simple plain text editor completely written in PowerShell. Saves files automatically.", "About", $Buttons);
 }
 
 function Alert($Message) {
