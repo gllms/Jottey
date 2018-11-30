@@ -107,10 +107,15 @@ function TextBoxType($Sender, $e) {
     Set-Content $global:InputFile $TextBox.Text
   }
 
-  $s = $TextBox.SelectionStart
-  $y = $TextBox.GetLineFromCharIndex($s) + 1
-  $x = $s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1
-  $StatusBarPanel.Text = "Ln: $y, Col: $x"
+  if($TextBox.SelectionLength){
+    $StatusBarPanel.Text = "Chars: " + ($TextBox.SelectedText).Length
+  }
+  else{
+    $s = $TextBox.SelectionStart
+    $y = $TextBox.GetLineFromCharIndex($s) + 1
+    $x = ($s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1)
+    $StatusBarPanel.Text = "Ln: $y, Col: $x"
+  }
 
 }
 
