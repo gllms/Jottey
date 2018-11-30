@@ -35,6 +35,7 @@ $TextBox.Font = "Consolas,10"
 $TextBox.ScrollBars = "Both"
 $TextBox.Add_KeyUp( { TextBoxType $TextBox $EventArgs } )
 $TextBox.Add_Click( { TextBoxType $TextBox $EventArgs } )
+$TextBox.Add_MouseLeave( { TextBoxType $TextBox $EventArgs } )
 
 $Jottey.Controls.Add($TextBox)
 
