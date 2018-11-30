@@ -99,6 +99,7 @@ function OpenMenuClick($Sender, $e) {
     $global:InputFile = $global:OpenFileDialog.FileName
     $InputData = Get-Content $global:InputFile
     $TextBox.Text = $InputData
+    $Jottey.Text = $global:InputFile + " - Jottey"
   }
 }
 
