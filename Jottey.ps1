@@ -83,9 +83,13 @@ $Jottey.Controls.Add($Menu)
 
 $StatusBar = New-Object System.Windows.Forms.StatusBar
 $StatusBarPanel = New-Object System.Windows.Forms.StatusBarPanel
+$StatusBarPanel.Width = 70
+$StatusBarPanel_AutoSave = New-Object System.Windows.Forms.StatusBarPanel
+$StatusBarPanel_AutoSave.Width = 115
 $StatusBarPanel.Text = "Ln 1, Col 1"
 $StatusBar.ShowPanels = $true
 $StatusBar.Panels.Add($StatusBarPanel)
+$StatusBar.Panels.Add($StatusBarPanel_AutoSave)
 
 $Jottey.Controls.Add($StatusBar)
 
@@ -106,6 +110,9 @@ function SelectAllMenuClick($Sender, $e) {
 function TextBoxType($Sender, $e) {
   if ($global:InputFile -ne "") {
     Set-Content $global:InputFile $TextBox.Text
+
+    $Time = Get-Date -F "HH:mm:ss"
+    $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
   }
 
   if($TextBox.SelectionLength){
@@ -117,7 +124,6 @@ function TextBoxType($Sender, $e) {
     $x = ($s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1)
     $StatusBarPanel.Text = "Ln: $y, Col: $x"
   }
-
 }
 
 function AboutMenuClick(){
