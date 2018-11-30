@@ -100,6 +100,7 @@ function OpenMenuClick($Sender, $e) {
 
 function SelectAllMenuClick($Sender, $e) {
   $TextBox.SelectAll()
+  TextBoxType
 }
 
 function TextBoxType($Sender, $e) {
