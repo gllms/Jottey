@@ -122,7 +122,7 @@ function TextBoxType($Sender, $e) {
     $StatusBarPanel.Text = "Ln: $y, Col: $x"
   }
 
-  $Time = Get-Date -F "HH:MM:ss"
+  $Time = Get-Date -F "HH:mm:ss"
   $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
 }
 
