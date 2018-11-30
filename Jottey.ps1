@@ -110,6 +110,9 @@ function SelectAllMenuClick($Sender, $e) {
 function TextBoxType($Sender, $e) {
   if ($global:InputFile -ne "") {
     Set-Content $global:InputFile $TextBox.Text
+
+    $Time = Get-Date -F "HH:mm:ss"
+    $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
   }
 
   if($TextBox.SelectionLength){
@@ -121,9 +124,6 @@ function TextBoxType($Sender, $e) {
     $x = ($s - $TextBox.GetFirstCharIndexOfCurrentLine() + 1)
     $StatusBarPanel.Text = "Ln: $y, Col: $x"
   }
-
-  $Time = Get-Date -F "HH:mm:ss"
-  $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
 }
 
 function AboutMenuClick(){
