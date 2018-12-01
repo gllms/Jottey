@@ -44,9 +44,11 @@ $FileMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $OpenMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $AboutMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$SettingsMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$FontMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $SelectAllMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 
-$Menu.Items.AddRange(@($FileMenu; $EditMenu))
+$Menu.Items.AddRange(@($FileMenu; $EditMenu; $SettingsMenu))
 $Menu.Location = New-Object System.Drawing.Point(0, 0)
 $Menu.Name = "Menu"
 $Menu.Size = New-Object System.Drawing.Size(400, 24)
@@ -79,6 +81,16 @@ $SelectAllMenu.Size = New-Object System.Drawing.Size(152, 22)
 $SelectAllMenu.Text = "Select &All"
 $SelectAllMenu.Add_Click( { SelectAllMenuClick $OpenMenu $EventArgs} )
 $SelectAllMenu.ShortCutKeys = "Control+A"
+
+$SettingsMenu.DropDownItems.AddRange(@($FontMenu))
+$SettingsMenu.Name = "settingsToolStripMenuItem"
+$SettingsMenu.Size = New-Object System.Drawing.Size(35, 20)
+$SettingsMenu.Text = "&Settings"
+
+$FontMenu.Name = "fontToolStripMenuItem"
+$FontMenu.Size = New-Object System.Drawing.Size(152, 22)
+$FontMenu.Text = "Fo&nt"
+$FontMenu.Add_Click( { FontMenuClick $FontMenu $EventArgs })
 
 $Jottey.Controls.Add($Menu)
 
@@ -143,6 +155,19 @@ function AboutMenuClick(){
 '@
 
   [System.Windows.Forms.MessageBox]::Show($Message, "About", $Buttons);
+}
+
+function FontMenuClick($Sender, $e) {
+  $FontDialog = New-Object System.Windows.Forms.FontDialog
+  $FontDialog.ShowColor = $true;
+
+  $FontDialog.Font = $TextBox.Font
+  $FontDialog.Color = $TextBox.ForeColor
+
+  if($FontDialog.ShowDialog() -ne "Cancel" ) {
+     $TextBox.Font = $FontDialog.Font
+     $TextBox.ForeColor = $FontDialog.Color
+  }
 }
 
 function Alert($Message) {
