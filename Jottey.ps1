@@ -160,6 +160,8 @@ function AboutMenuClick(){
 function FontMenuClick($Sender, $e) {
   $FontDialog = New-Object System.Windows.Forms.FontDialog
   $FontDialog.ShowColor = $true;
+  $FontDialog.ShowEffects = $true;
+  $FontDialog.ShowApply = $true;
 
   $FontDialog.Font = $TextBox.Font
   $FontDialog.Color = $TextBox.ForeColor
