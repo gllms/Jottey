@@ -12,9 +12,15 @@ Add-Type -AssemblyName System.IO
 # Globals
 $global:InputFile = ""
 
+$InitialDirectory = "C:\"
+
 $global:OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
 $global:OpenFileDialog.InitialDirectory = $InitialDirectory
 $global:OpenFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+
+$global:SaveFileDialog = New-Object System.Windows.Forms.SaveFileDialog
+$global:SaveFileDialog.InitialDirectory = $InitialDirectory
+$global:SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 
 #region begin GUI{ 
 
@@ -43,6 +49,7 @@ $Jottey.Controls.Add($TextBox)
 $Menu = New-Object System.Windows.Forms.MenuStrip
 $FileMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $OpenMenu = New-Object System.Windows.Forms.ToolStripMenuItem
+$SaveAsMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $AboutMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $SettingsMenu = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -56,7 +63,7 @@ $Menu.Size = New-Object System.Drawing.Size(400, 24)
 $Menu.TabIndex = 0
 $Menu.Text = "Menu"
 
-$FileMenu.DropDownItems.AddRange(@($OpenMenu; $AboutMenu))
+$FileMenu.DropDownItems.AddRange(@($OpenMenu; $SaveAsMenu; $AboutMenu))
 $FileMenu.Name = "fileToolStripMenuItem"
 $FileMenu.Size = New-Object System.Drawing.Size(35, 20)
 $FileMenu.Text = "&File"
@@ -66,6 +73,12 @@ $OpenMenu.Size = New-Object System.Drawing.Size(152, 22)
 $OpenMenu.Text = "&Open"
 $OpenMenu.Add_Click( { OpenMenuClick $OpenMenu $EventArgs} )
 $OpenMenu.ShortCutKeys = "Control+O"
+
+$SaveAsMenu.Name = "saveAsToolStripMenuItem"
+$SaveAsMenu.Size = New-Object System.Drawing.Size(152, 22)
+$SaveAsMenu.Text = "&Save As..."
+$SaveAsMenu.Add_Click( { SaveAsMenuClick $SaveAsMenu $EventArgs} )
+$SaveAsMenu.ShortCutKeys = "Control+S"
 
 $AboutMenu.Name = "aboutToolStripMenuItem"
 $AboutMenu.Size = New-Object System.Drawing.Size(269, 22)
@@ -109,8 +122,8 @@ $Jottey.Controls.Add($StatusBar)
 
 #region gui events {
 function FormLoad($Sender, $e) {
-  if (Test-Path ".\text.temp") {
-    $TextBox.Text = Get-Content ".\text.temp"
+  if (Test-Path ".\text.tmp") {
+    $TextBox.Text = Get-Content ".\text.tmp"
   }
 }
 
@@ -120,6 +133,16 @@ function OpenMenuClick($Sender, $e) {
     $InputData = Get-Content $global:InputFile
     $TextBox.Text = $InputData
     $Jottey.Text = $global:InputFile + " - Jottey"
+  }
+}
+
+function SaveAsMenuClick($Sender, $e) {
+  if ($global:SaveFileDialog.ShowDialog() -eq "OK") {
+    $global:InputFile = $global:SaveFileDialog.FileName
+    $Jottey.Text = $global:InputFile + " - Jottey"
+    if (Test-Path -Path ".\text.tmp") {
+      Remove-Item -Path ".\text.tmp"
+    }
   }
 }
 
@@ -134,10 +157,10 @@ function TextBoxType($Sender, $e) {
 
     $Time = Get-Date -F "HH:mm:ss"
     $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
-  } elseif (Test-Path -Path ".\text.temp") {
-    Set-Content ".\text.temp" $TextBox.Text 
+  } elseif (Test-Path -Path ".\text.tmp") {
+    Set-Content ".\text.tmp" $TextBox.Text 
   } else {
-    $TextBox.Text | Out-File ".\text.temp"
+    $TextBox.Text | Out-File ".\text.tmp"
   }
 
   if($TextBox.SelectionLength){
