@@ -23,6 +23,7 @@ $Jottey.ClientSize = "400,400"
 $Jottey.Text = "Jottey"
 $Jottey.TopMost = $false
 $Jottey.Icon = "img/icon.ico"
+$Jottey.Add_Load( { FormLoad $TextBox $EventArgs } )
 
 $TextBox = New-Object System.Windows.Forms.TextBox
 $TextBox.Multiline = $true
@@ -107,6 +108,12 @@ $StatusBar.Panels.Add($StatusBarPanel_AutoSave)
 $Jottey.Controls.Add($StatusBar)
 
 #region gui events {
+function FormLoad($Sender, $e) {
+  if (Test-Path ".\text.temp") {
+    $TextBox.Text = Get-Content ".\text.temp"
+  }
+}
+
 function OpenMenuClick($Sender, $e) {
   if ($global:OpenFileDialog.ShowDialog() -eq "OK") {
     $global:InputFile = $global:OpenFileDialog.FileName
@@ -127,6 +134,10 @@ function TextBoxType($Sender, $e) {
 
     $Time = Get-Date -F "HH:mm:ss"
     $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
+  } elseif (Test-Path -Path ".\text.temp") {
+    Set-Content ".\text.temp" $TextBox.Text 
+  } else {
+    $TextBox.Text | Out-File ".\text.temp"
   }
 
   if($TextBox.SelectionLength){
