@@ -47,12 +47,6 @@ $EditMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $SettingsMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $FontMenu = New-Object System.Windows.Forms.ToolStripMenuItem
 $SelectAllMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$UndoMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$CutMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$CopyMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$PasteMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$DeleteMenu = New-Object System.Windows.Forms.ToolStripMenuItem
-$Seperator = New-Object System.Windows.Forms.ToolStripSeparator
 
 $Menu.Items.AddRange(@($FileMenu; $EditMenu; $SettingsMenu))
 $Menu.Location = New-Object System.Drawing.Point(0, 0)
@@ -77,7 +71,7 @@ $AboutMenu.Size = New-Object System.Drawing.Size(269, 22)
 $AboutMenu.Text = "&About"
 $AboutMenu.Add_Click( { AboutMenuClick $AboutMenu $EventArgs} )
 
-$EditMenu.DropDownItems.AddRange(@($UndoMenu; New-Object $Seperator; $CutMenu; $CopyMenu; $PasteMenu; $DeleteMenu; New-Object $Seperator; $SelectAllMenu))
+$EditMenu.DropDownItems.AddRange(@($SelectAllMenu))
 $EditMenu.Name = "editToolStripMenuItem"
 $EditMenu.Size = New-Object System.Drawing.Size(35, 20)
 $EditMenu.Text = "&Edit"
@@ -87,36 +81,6 @@ $SelectAllMenu.Size = New-Object System.Drawing.Size(152, 22)
 $SelectAllMenu.Text = "Select &All"
 $SelectAllMenu.Add_Click( { SelectAllMenuClick $OpenMenu $EventArgs} )
 $SelectAllMenu.ShortCutKeys = "Control+A"
-
-$UndoMenu.Name = "undoToolStripMenuItem"
-$UndoMenu.Size = New-Object System.Drawing.Size(152, 22)
-$UndoMenu.Text = "&Undo"
-$UndoMenu.Add_Click( { $TextBox.Undo() } )
-$UndoMenu.ShortCutKeys = "Control+Z"
-
-$CutMenu.Name = "cutToolStripMenuItem"
-$CutMenu.Size = New-Object System.Drawing.Size(152, 22)
-$CutMenu.Text = "Cu&t"
-$CutMenu.Add_Click( { $TextBox.Cut() } )
-$CutMenu.ShortCutKeys = "Control+X"
-
-$CopyMenu.Name = "copyToolStripMenuItem"
-$CopyMenu.Size = New-Object System.Drawing.Size(152, 22)
-$CopyMenu.Text = "&Copy"
-$CopyMenu.Add_Click( { $TextBox.Copy() } )
-$CopyMenu.ShortCutKeys = "Control+C"
-
-$PasteMenu.Name = "pasteToolStripMenuItem"
-$PasteMenu.Size = New-Object System.Drawing.Size(152, 22)
-$PasteMenu.Text = "&Paste"
-$PasteMenu.Add_Click( { $TextBox.Paste() } )
-$PasteMenu.ShortCutKeys = "Control+V"
-
-$DeleteMenu.Name = "deleteToolStripMenuItem"
-$DeleteMenu.Size = New-Object System.Drawing.Size(152, 22)
-$DeleteMenu.Text = "&Delete"
-$DeleteMenu.Add_Click( { $TextBox.Text = $TextBox.Text.Remove($TextBox.SelectionStart, $TextBox.SelectionLength) } )
-$DeleteMenu.ShortCutKeys = "Del"
 
 $SettingsMenu.DropDownItems.AddRange(@($FontMenu))
 $SettingsMenu.Name = "settingsToolStripMenuItem"
