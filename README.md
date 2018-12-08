@@ -19,7 +19,7 @@ Saves files automatically.
 ## TODO
 - [x] Open files
 - [x] Auto save
-- [ ] Save as
+- [x] Save as
 - [ ] Search / Replace
 - [x] About
 - [x] Statusbar with Line and Column numbers
