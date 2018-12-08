@@ -10,6 +10,9 @@ Saves files automatically.
 * Open file
 * All basic operations (Undo, Cut, Copy, Paste, Delete, Select All)
 * Font settings (Font, size, color)
+* Statusbar with 
+  * line and Column numbers 
+  * if something selected, the length of the selection
 
 ## TODO
 - [x] Open files
