@@ -2,6 +2,8 @@
 Simple plain text editor completely written in PowerShell. 
 Saves files automatically.
 
+[Download Jottey](https://github.com/gllms/Jottey/releases)
+
 ## Screenshot
 ![Screenshot](https://user-images.githubusercontent.com/19732805/49251009-b5248380-f420-11e8-9658-602f3a9c1866.png)
 
