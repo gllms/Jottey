@@ -11,7 +11,7 @@ Saves files automatically.
 * All basic operations (Undo, Cut, Copy, Paste, Delete, Select All)
 * Font settings (Font, size, color)
 * Statusbar with 
-  * line and Column numbers 
+  * line and column numbers 
   * if something selected, the length of the selection
 
 ## TODO
