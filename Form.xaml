@@ -1,68 +1,41 @@
 <Window
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  x:Name="Window"
-  Title="Jottey"
-	Height="400"
-  Width="400">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="Window"
+    Title="Jottey"
+    Height="400"
+    Width="400">
+
 	<DockPanel>
-		<Menu
-			DockPanel.Dock="Top">
-			<MenuItem
-				Header="_File" >
-				<MenuItem
-					Header="_Open"
-          InputGestureText="Ctrl+O"
-          x:Name="OpenMenu" />
-				<MenuItem
-					Header="_Save As..."
-					InputGestureText="Ctrl+S" />
-				<MenuItem
-					Header="_About" />
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File" >
+				<MenuItem Header="_Open" InputGestureText="Ctrl+O" x:Name="OpenMenu" />
+				<MenuItem Header="_Save As..." InputGestureText="Ctrl+S" />
+				<MenuItem Header="_About" />
 			</MenuItem>
-			<MenuItem
-				Header="_Edit">
-				<MenuItem
-          Header="_Undo"
-          InputGestureText="Ctrl+Z" />
-				<Separator />
-				<MenuItem
-          Header="Cu_t"
-          InputGestureText="Ctrl+X" />
-				<MenuItem
-          Header="_Copy"
-          InputGestureText="Ctrl+C" />
-				<MenuItem
-          Header="_Paste"
-          InputGestureText="Ctrl+V" />
-				<MenuItem
-          Header="_Delete"
-          InputGestureText="Del" />
-				<Separator />
-				<MenuItem
-          Header="Select _All"
-          InputGestureText="Ctrl+A" />
+			
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" />
+			    <Separator />
+			    <MenuItem Header="Cu_t" InputGestureText="Ctrl+X" />
+			    <MenuItem Header="_Copy" InputGestureText="Ctrl+C" />
+			    <MenuItem Header="_Paste" InputGestureText="Ctrl+V" />
+                <MenuItem Header="_Delete" InputGestureText="Del" />
+			    <Separator />
+			    <MenuItem Header="Select _All" InputGestureText="Ctrl+A" />
 			</MenuItem>
-			<MenuItem
-				Header="_Settings">
-				<MenuItem
-					Header="_Font" />
+			
+            <MenuItem Header="_Settings">
+				<MenuItem Header="_Font" />
 			</MenuItem>
 		</Menu>
-		<StatusBar
-			DockPanel.Dock="Bottom">
+		
+        <StatusBar DockPanel.Dock="Bottom">
 			<StatusBarItem>
-				<TextBlock
-					Name="StatusBarPanel"
-					Text="Ln: 1, Col: 1" />
+				<TextBlock Name="StatusBarPanel" Text="Ln: 1, Col: 1" />
 			</StatusBarItem>
 		</StatusBar>
-    <TextBox
-      x:Name = "TextBox"
-			AcceptsReturn="True"
-			TextWrapping="NoWrap"
-			AcceptsTab="True"
-			HorizontalScrollBarVisibility="Auto"
-			VerticalScrollBarVisibility="Auto" />
+        
+        <TextBox x:Name = "TextBox" AcceptsReturn="True" TextWrapping="NoWrap" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
 	</DockPanel>
 </Window>
