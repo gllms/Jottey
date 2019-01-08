@@ -10,23 +10,24 @@
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File" >
 				<MenuItem Header="_Open" InputGestureText="Ctrl+O" x:Name="OpenMenu" />
-				<MenuItem Header="_Save As..." InputGestureText="Ctrl+S" />
-				<MenuItem Header="_About" />
+				<MenuItem Header="_Save As..." InputGestureText="Ctrl+S" x:Name="SaveAsMenu" />
+				<MenuItem Header="_About" x:Name="AboutMenu"/>
 			</MenuItem>
 			
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" />
+                <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" x:Name="UndoMenu" />
+				<MenuItem Header="_Redo" InputGestureText="Ctrl+Y" x:Name="RedoMenu" />
 			    <Separator />
-			    <MenuItem Header="Cu_t" InputGestureText="Ctrl+X" />
-			    <MenuItem Header="_Copy" InputGestureText="Ctrl+C" />
-			    <MenuItem Header="_Paste" InputGestureText="Ctrl+V" />
-                <MenuItem Header="_Delete" InputGestureText="Del" />
+			    <MenuItem Header="Cu_t" InputGestureText="Ctrl+X" x:Name="CutMenu" />
+			    <MenuItem Header="_Copy" InputGestureText="Ctrl+C" x:Name="CopyMenu" />
+			    <MenuItem Header="_Paste" InputGestureText="Ctrl+V" x:Name="PasteMenu" />
+                <MenuItem Header="_Delete" InputGestureText="Del" x:Name="DeleteMenu" />
 			    <Separator />
-			    <MenuItem Header="Select _All" InputGestureText="Ctrl+A" />
+			    <MenuItem Header="Select _All" InputGestureText="Ctrl+A" x:Name="SelectAllMenu" />
 			</MenuItem>
 			
             <MenuItem Header="_Settings">
-				<MenuItem Header="_Font" />
+				<MenuItem Header="_Font" x:Name="FontMenu" />
 			</MenuItem>
 		</Menu>
 		

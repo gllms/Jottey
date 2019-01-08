@@ -44,6 +44,18 @@ $TextBox.Add_SelectionChanged({ TextBoxType })
 
 $StatusBarPanel = $Window.FindName("StatusBarPanel")
 
+$Window.FindName("OpenMenu").Add_Click({ OpenMenuClick })
+$Window.FindName("SaveAsMenu").Add_Click({ SaveAsMenuClick })
+$Window.FindName("AboutMenu").Add_Click({ AboutMenuClick })
+$Window.FindName("UndoMenu").Add_Click({ $TextBox.Undo() })
+$Window.FindName("RedoMenu").Add_Click({ $TextBox.Redo() })
+$Window.FindName("CutMenu").Add_Click({ $TextBox.Cut() })
+$Window.FindName("CopyMenu").Add_Click({ $TextBox.Copy() })
+$Window.FindName("PasteMenu").Add_Click({ $TextBox.Paste() })
+$Window.FindName("DeleteMenu").Add_Click({ $TextBox.Text = $TextBox.Text.Remove($TextBox.SelectionStart, $TextBox.SelectionLength) })
+$Window.FindName("SelectAllMenu").Add_Click({ $TextBox.SelectAll(); TextBoxType })
+$Window.FindName("FontMenu").Add_Click({ FontMenuClick })
+
 #region gui events {
 
 function OpenMenuClick($Sender, $e) {
@@ -51,17 +63,17 @@ function OpenMenuClick($Sender, $e) {
     $global:InputFile = $global:OpenFileDialog.FileName
     $InputData = Get-Content $global:InputFile
     $TextBox.Text = $InputData
-    $Jottey.Text = $global:InputFile + " - Jottey"
+    $Window.Title = $global:InputFile + " - Jottey"
   }
 }
 
 function SaveAsMenuClick($Sender, $e) {
   if ($global:SaveFileDialog.ShowDialog() -eq "OK") {
-    $global:InputFile = $global:SaveFileDialog.FileName
-    $Jottey.Text = $global:InputFile + " - Jottey"
-    if (Test-Path -Path ".\text.tmp") {
+    if ((Test-Path -Path ".\text.tmp") -and ($global:InputFile -eq "")) {
       Remove-Item -Path ".\text.tmp"
     }
+    $global:InputFile = $global:SaveFileDialog.FileName
+    $Window.Title = $global:InputFile + " - Jottey"
   }
 }
 
@@ -75,7 +87,7 @@ function TextBoxType() {
     Set-Content $global:InputFile $TextBox.Text
 
     $Time = Get-Date -F "HH:mm:ss"
-    $StatusBarPanel_AutoSave.Text = "Last Saved: $Time"
+    $StatusBarPanel.Text = "Last Saved: $Time"
   } elseif (Test-Path -Path ".\text.tmp") {
     Set-Content ".\text.tmp" $TextBox.Text 
   } else {
@@ -103,7 +115,7 @@ function AboutMenuClick() {
   
   MIT License - https://github.com/gllms/Jottey/blob/master/LICENSE.txt
 
-  Copyright (c) 2018 gllms
+  Copyright (c) 2019 gllms
 '@
 
   [System.Windows.Forms.MessageBox]::Show($Message, "About", $Buttons);
@@ -115,8 +127,8 @@ function FontMenuClick($Sender, $e) {
   $FontDialog.ShowEffects = $true;
   $FontDialog.ShowApply = $true;
 
-  $FontDialog.Font = $TextBox.Font
-  $FontDialog.Color = $TextBox.ForeColor
+  $FontDialog.Font = $TextBox.FontFamily
+  $FontDialog.Color = $TextBox.Foreground
 
   if ($FontDialog.ShowDialog() -ne "Cancel" ) {
     $TextBox.Font = $FontDialog.Font
